@@ -4,24 +4,36 @@ import { useBebidasStore } from "./bebidas";
 export const useFavoritosStore = defineStore("favoritos", () => {
   const bebidas = useBebidasStore();
   const favoritos = ref([]);
-  watch(
-    favoritos,
-    () => {
-      sincronizarLocalStorage();
-    },
-    {
-      deep: true,
-    }
-  );
-  const sincronizarLocalStorage = () => {
+  onMounted(() => {
+    favoritos.value = JSON.parse(localStorage.getItem("favoritos")) ?? [];
+  }),
+    watch(
+      favoritos,
+      () => {
+        sincronizarLocalStorage();
+      },
+      {
+        deep: true,
+      }
+    );
+  function sincronizarLocalStorage() {
     localStorage.setItem("favoritos", JSON.stringify(favoritos.value));
-  };
-
-  const handleClickFavorito = () => {
-    favoritos.value.push(bebidas.receta);
-  };
+  }
+  function existeFavorito(id) {
+    const favoritosLocalStorage =
+      JSON.parse(localStorage.getItem("favoritos")) ?? [];
+    return favoritosLocalStorage.some((favorito) => favorito.idDrink === id);
+  }
+  function handleClickFavorito() {
+    if (existeFavorito(bebidas.receta.idDrink)) {
+      console.log("existe");
+    } else {
+      favoritos.value.push(bebidas.receta);
+    }
+  }
   return {
     favoritos,
+    existeFavorito,
     handleClickFavorito,
   };
 });
