@@ -102,7 +102,7 @@ const formatearIngredientes = () => {
                   class="w-full rounded bg-orange-600 p-3 font-bold uppercase text-white shadow hover:bg-orange-500"
                   @click="favoritos.handleClickFavorito"
                 >
-                  Add to Favorites
+                  {{ modal.textoBoton }}
                 </button>
               </div>
             </DialogPanel>
