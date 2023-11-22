@@ -6,7 +6,13 @@ const bebidas = useBebidasStore();
 
 <template>
   <h1 class="text-6xl font-extrabold">Recipes</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 my-10 gap-10">
+  <p v-if="bebidas.noRecetas" class="my-10 text-center text-2xl">
+    There are no Results
+  </p>
+  <div
+    v-else
+    class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 my-10 gap-10"
+  >
     <Receta
       v-for="receta in bebidas.recetas"
       :receta="receta"
