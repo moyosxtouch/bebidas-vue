@@ -34,14 +34,19 @@ export const useFavoritosStore = defineStore("favoritos", () => {
     favoritos.value = favoritos.value.filter(
       (favorito) => favorito.idDrink !== bebidas.receta.idDrink
     );
+    notificaciones.mostrar = true;
+    notificaciones.texto = "Remove to Favorites";
+    // setTimeout(() => {
+    //   notificaciones.$reset();
+    // }, 3000);
   }
   function agregarFavorito() {
     favoritos.value.push(bebidas.receta);
     notificaciones.mostrar = true;
-    notificaciones.texto = "Se agrego a favoritos";
-    setTimeout(() => {
-      notificaciones.$reset();
-    }, 3000);
+    notificaciones.texto = "Add to Favorites";
+    // setTimeout(() => {
+    //   notificaciones.$reset();
+    // }, 3000);
   }
   function handleClickFavorito() {
     if (existeFavorito(bebidas.receta.idDrink)) {
